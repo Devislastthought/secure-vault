@@ -1,15 +1,17 @@
 #!/usr/bin/env bash
 
-VAULT_DIR="$HOME/secure_vault"
+# Vault folder path
+VAULT="$HOME/secure-vault-data"
 
-echo "🔐 Setting up Secure Vault..."
+echo "Creating secure vault..."
 
-mkdir -p "$VAULT_DIR"
+# Create vault folder if it doesn't exist
+mkdir -p "$VAULT"
 
-echo "Welcome to the Secure Vault Keys File" > "$VAULT_DIR/keys.txt"
-echo "Welcome to the Secure Vault Secrets File" > "$VAULT_DIR/secrets.txt"
-echo "Welcome to the Secure Vault Logs File" > "$VAULT_DIR/logs.txt"
+# Create files with welcome messages
+echo "This file stores keys" > "$VAULT/keys.txt"
+echo "This file stores secrets" > "$VAULT/secrets.txt"
+echo "This file stores logs" > "$VAULT/logs.txt"
 
-echo "✅ Secure Vault setup completed successfully."
-echo
-ls -l "$VAULT_DIR"
+echo "Vault created successfully!"
+ls -l "$VAULT"
