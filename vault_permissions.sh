@@ -1,31 +1,33 @@
 #!/usr/bin/env bash
 
-VAULT_DIR="$HOME/secure_vault"
+VAULT="$HOME/secure-vault-data"
 
-if [ ! -d "$VAULT_DIR" ]; then
-    echo "❌ secure_vault does not exist."
+# Check if vault exists
+if [ ! -d "$VAULT" ]; then
+    echo "Vault not found! Run vault_setup.sh first."
     exit 1
 fi
 
-update_permissions() {
-    local file="$1"
-    local default="$2"
+# Function to update permissions
+set_perm() {
+    FILE=$1
+    DEFAULT=$2
 
-    ls -l "$file"
-    read -p "Update permissions? (y/n, Enter = default): " answer
+    ls -l "$FILE"
+    echo "Enter permission for $(basename "$FILE") or press Enter for default ($DEFAULT):"
+    read PERM
 
-    if [ "$answer" = "y" ]; then
-        read -p "Enter permission (e.g. 600): " perm
-        chmod "$perm" "$file"
+    if [ -z "$PERM" ]; then
+        chmod "$DEFAULT" "$FILE"
     else
-        chmod "$default" "$file"
+        chmod "$PERM" "$FILE"
     fi
 }
 
-update_permissions "$VAULT_DIR/keys.txt" 600
-update_permissions "$VAULT_DIR/secrets.txt" 640
-update_permissions "$VAULT_DIR/logs.txt" 644
+# Set permissions for each file
+set_perm "$VAULT/keys.txt" 600
+set_perm "$VAULT/secrets.txt" 640
+set_perm "$VAULT/logs.txt" 644
 
-echo
-echo "📄 Final permissions:"
-ls -l "$VAULT_DIR"
+echo "Final permissions:"
+ls -l "$VAULT"
