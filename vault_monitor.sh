@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Vault path
-VAULT="$HOME/secure-vault-data"
+VAULT="$HOME/secure-vault"
 
 # Report will be created in the repository folder
 REPORT="$PWD/vault_report.txt"
